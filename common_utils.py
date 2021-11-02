@@ -8,6 +8,11 @@ from datetime import datetime, timedelta
 RANDOM_SEED = 1024
 
 
+def fixed_all_random_seeds():
+    fixed_random_seed()
+    fixed_numpy_random_seed()
+
+
 def fixed_random_seed():
     random.seed(RANDOM_SEED)
 
