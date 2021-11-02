@@ -1,6 +1,19 @@
 import cv2
+import random
+import numpy as np
+
 from common_config import _CLASS_COLORS
 from datetime import datetime, timedelta
+
+RANDOM_SEED = 1024
+
+
+def fixed_random_seed():
+    random.seed(RANDOM_SEED)
+
+
+def fixed_numpy_random_seed():
+    np.random.seed(RANDOM_SEED)
 
 
 def _get_timestamp_string():
