@@ -1,6 +1,6 @@
 import os
-from common_utils import _get_timestamp_string
-from common_config import OUTPUT_DIRECTORY
+from .common_utils import _get_timestamp_string
+from .common_config import OUTPUT_DIRECTORY
 
 
 def make_classification_model_directory(model_name):

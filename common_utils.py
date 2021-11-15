@@ -2,7 +2,7 @@ import cv2
 import random
 import numpy as np
 
-from common_config import _CLASS_COLORS
+from .common_config import _CLASS_COLORS
 from datetime import datetime, timedelta
 
 RANDOM_SEED = 1024
