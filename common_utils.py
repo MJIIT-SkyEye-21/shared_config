@@ -1,4 +1,4 @@
-import cv2
+
 import random
 import numpy as np
 
@@ -45,7 +45,7 @@ def bbox_color_rgb(class_name):
 
 
 def draw_text(img, text,
-              font=cv2.FONT_HERSHEY_PLAIN,
+              font=None,
               pos=(0, 0),
               font_scale=2,
               font_thickness=2,
@@ -53,6 +53,9 @@ def draw_text(img, text,
               text_color_bg=(0, 0, 0)
               ):
 
+    import cv2
+    if font is None:
+        font = cv2.FONT_HERSHEY_PLAIN
     x, y = pos
     text_size, _ = cv2.getTextSize(text, font, font_scale, font_thickness)
     text_w, text_h = text_size
