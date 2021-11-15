@@ -1,0 +1,4 @@
+from .detection_config import TARGET_CLASSES
+from .classification_config import DEFECT_CLASSIFICATION_CLASSES
+
+ALL_CLASSES = TARGET_CLASSES + DEFECT_CLASSIFICATION_CLASSES
