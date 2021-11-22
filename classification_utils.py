@@ -10,3 +10,16 @@ def make_classification_model_directory(model_name):
 
     os.makedirs(model_dir)
     return model_dir
+
+
+def print_metrics(confusion_m, classification_report, labels):
+    from tabulate import tabulate
+    adapted_matrix = []
+
+    for i, cls in enumerate(labels):
+        adapted_matrix.append([cls, *confusion_m[i]])
+
+    tabulated_matrix = tabulate(adapted_matrix, headers=['Class', *labels])
+
+    print('Confusion matrix: \n', tabulated_matrix)
+    print('Classification report : \n', classification_report)
