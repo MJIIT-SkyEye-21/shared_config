@@ -64,3 +64,9 @@ def draw_text(img, text,
                 font_scale, text_color, font_thickness, cv2.LINE_AA)
 
     return text_size
+
+def print_hyperparameters(config_module):
+    print('Hyperparameters:')
+    for key, value in config_module.__dict__.items():
+        if not key.startswith('__'):
+            print(f'{key}: {value}')
