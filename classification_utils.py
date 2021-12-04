@@ -23,3 +23,18 @@ def print_metrics(confusion_m, classification_report, labels):
 
     print('Confusion matrix: \n', tabulated_matrix)
     print('Classification report : \n', classification_report)
+
+
+def compute_metrics(actual, predicted, labels):
+    from sklearn.metrics import confusion_matrix
+    from sklearn.metrics import classification_report
+    import numpy as np
+
+    labels_np = np.array(labels)
+    p = labels_np[predicted]
+    a = labels_np[actual]
+
+    confusion_m = confusion_matrix(a, p, labels=labels)
+    report = classification_report(a, p, labels=labels)
+
+    return confusion_m, report
