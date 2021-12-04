@@ -1,4 +1,4 @@
-
+from types import ModuleType
 import random
 import numpy as np
 
@@ -65,8 +65,9 @@ def draw_text(img, text,
 
     return text_size
 
+
 def print_hyperparameters(config_module):
     print('Hyperparameters:')
     for key, value in config_module.__dict__.items():
-        if not key.startswith('__'):
+        if not key.startswith('__') and not callable(value) and not isinstance(value, ModuleType):
             print(f'{key}: {value}')
