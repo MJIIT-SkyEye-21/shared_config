@@ -35,6 +35,6 @@ def compute_metrics(actual, predicted, labels):
     a = labels_np[actual]
 
     confusion_m = confusion_matrix(a, p, labels=labels)
-    report = classification_report(a, p, labels=labels)
+    report = classification_report(a, p, labels=labels, output_dict=True)
 
     return confusion_m, report
