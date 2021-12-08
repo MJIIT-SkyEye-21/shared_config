@@ -66,8 +66,10 @@ def draw_text(img, text,
     return text_size
 
 
-def print_hyperparameters(config_module):
-    print('Hyperparameters:')
+def get_hyperparameter_dict(config_module):
+    hyperparameters = {}
     for key, value in config_module.__dict__.items():
         if not key.startswith('__') and not callable(value) and not isinstance(value, ModuleType):
-            print(f'{key}: {value}')
+            hyperparameters[key] = value
+
+    return hyperparameters
