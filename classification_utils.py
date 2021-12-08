@@ -12,6 +12,21 @@ def make_classification_model_directory(model_name):
     return model_dir
 
 
+def load_model(model_path, device="cuda"):
+    import torch
+
+    if torch.cuda.is_available():
+        def map_location(storage, loc): return storage.cuda()
+    else:
+        map_location = "cpu"
+
+    print("[INFO] loading the model...")
+    model = torch.load(model_path, map_location=map_location)
+    model.to(device)
+    model.eval()
+    return model
+
+
 def print_metrics(confusion_m, classification_report, labels):
     from tabulate import tabulate
     adapted_matrix = []
