@@ -37,7 +37,9 @@ def print_metrics(confusion_m, classification_report, labels):
     tabulated_matrix = tabulate(adapted_matrix, headers=['Class', *labels])
 
     print('Confusion matrix: \n', tabulated_matrix)
-    print('Classification report : \n', classification_report)
+    print('Classification report : \n')
+    from pprint import pprint
+    pprint(classification_report)
 
 
 def compute_metrics(actual, predicted, labels):
@@ -50,6 +52,8 @@ def compute_metrics(actual, predicted, labels):
     a = labels_np[actual]
 
     confusion_m = confusion_matrix(a, p, labels=labels)
+    report = classification_report(a, p, labels=labels)
+    print('Classification report:\n', report)
     report = classification_report(a, p, labels=labels, output_dict=True)
 
     return confusion_m, report
