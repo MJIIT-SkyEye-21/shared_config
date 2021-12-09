@@ -29,7 +29,7 @@ def load_model(model_path, device="cuda"):
     return model
 
 
-def print_metrics(confusion_m, classification_report, labels):
+def print_metrics(confusion_m, labels):
     from tabulate import tabulate
     adapted_matrix = []
 
@@ -41,14 +41,20 @@ def print_metrics(confusion_m, classification_report, labels):
     print('Confusion matrix: \n', tabulated_matrix)
     print('Classification report : \n')
 
-    for k, v in classification_report.items():
-        if isinstance(v, float):
-            print(k, '\n', v)
-        elif isinstance(v, dict):
-            print(k, '\n')
-            keys = ','.join(v.keys())
-            values = ','.join([str(x) for x in v.values()])
-            print(f'{keys}\n{values}')
+
+def print_report_csv(classification_report, out_dir):
+    report_path = os.path.join(out_dir, 'classification_report.csv')
+    with open(report_path, 'w') as f:
+        for k, v in classification_report.items():
+            if isinstance(v, float):
+                print(f'{k}\n{v:.2f}', file=f)
+            elif isinstance(v, dict):
+                print(k, '\n', file=f)
+                keys = ','.join(v.keys())
+                values = ','.join([str(x) for x in v.values()])
+                print(f'{keys}\n{values}', file=f)
+
+    print(f'Classification report saved to {report_path}')
 
 
 def compute_metrics(actual, predicted, labels):
@@ -56,13 +62,13 @@ def compute_metrics(actual, predicted, labels):
     from sklearn.metrics import classification_report
     import numpy as np
 
-    labels_np=np.array(labels)
-    p=labels_np[predicted]
-    a=labels_np[actual]
+    labels_np = np.array(labels)
+    p = labels_np[predicted]
+    a = labels_np[actual]
 
-    confusion_m=confusion_matrix(a, p, labels=labels)
-    report=classification_report(a, p, labels=labels)
+    confusion_m = confusion_matrix(a, p, labels=labels)
+    report = classification_report(a, p, labels=labels)
     print('Classification report:\n', report)
-    report=classification_report(a, p, labels=labels, output_dict=True)
+    report = classification_report(a, p, labels=labels, output_dict=True)
 
     return confusion_m, report
