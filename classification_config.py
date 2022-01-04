@@ -8,3 +8,5 @@ DEFECT_CLASSIFICATION_CLASSES = [
     'corrosion',
     'peel',
 ]
+
+PREDICTION_THRESHOLD = 0.8
