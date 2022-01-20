@@ -1,6 +1,7 @@
+from typing import List, Tuple
+import re
 import os
 import io
-from numpy import number
 from .common_utils import _get_timestamp_string
 from .common_config import OUTPUT_DIRECTORY
 
@@ -61,3 +62,38 @@ def get_computed_metrics(actual, predicted, labels) -> io.StringIO:
     print('Classification report:\n', report, file=out)
 
     return out
+
+
+def get_dataset_metrics(root_dir) -> Tuple[dict, list]:
+    from torchvision import datasets
+    from collections import Counter
+
+    ds = datasets.ImageFolder(root=root_dir)
+    rm_idx_num = re.compile(r'_\d+.*')
+    rm_tile = re.compile(r'^tile_')
+
+    site_counter_dict = {}
+    for (fname, label_idx) in ds.samples:
+        _, image_name = os.path.split(fname)
+
+        image_name = rm_idx_num.sub('', image_name, 1)
+        site_name = rm_tile.sub('', image_name, 1)
+
+        if site_name not in site_counter_dict:
+            site_counter_dict[site_name] = Counter()
+
+        site_counter_dict[site_name].update([label_idx])
+
+    return site_counter_dict, ds.classes
+
+
+def get_printable_dataset_metrics(site_counter_dict: dict, classes: List[str]) -> str:
+    out_fd = io.StringIO()
+    for (site, site_counter) in site_counter_dict.items():
+        print(site, file=out_fd)
+        for label_idx in site_counter:
+            print('|-', '{0:04}'.format(site_counter[label_idx]),
+                  classes[label_idx], file=out_fd)
+        print(file=out_fd)
+
+    return out_fd.getvalue()
