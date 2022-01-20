@@ -30,13 +30,13 @@ def load_model(model_path, device="cuda"):
     return model
 
 
-def get_computed_metrics(actual, predicted, labels) -> io.StringIO:
+def get_computed_metrics(actual, predicted, labels) -> str:
     """
         Compute metrics for classification (confusion matrix, classification report)
         :param actual: list of actual labels
         :param predicted: list of predicted labels
         :param labels: list of labels
-        :return: io.StringIO object with metrics
+        :return: str object with metrics
     """
 
     from sklearn.metrics import confusion_matrix
@@ -61,7 +61,7 @@ def get_computed_metrics(actual, predicted, labels) -> io.StringIO:
     report = classification_report(a, p, labels=labels)
     print('Classification report:\n', report, file=out)
 
-    return out
+    return out.getvalue()
 
 
 def get_dataset_metrics(root_dir) -> Tuple[dict, list]:
