@@ -2,6 +2,7 @@ from typing import List, Tuple
 import re
 import os
 import io
+from collections import Counter
 from .common_utils import _get_timestamp_string
 from .common_config import OUTPUT_DIRECTORY
 
@@ -66,7 +67,6 @@ def get_computed_metrics(actual, predicted, labels) -> str:
 
 def get_dataset_metrics(root_dir) -> Tuple[dict, list]:
     from torchvision import datasets
-    from collections import Counter
 
     ds = datasets.ImageFolder(root=root_dir)
     rm_idx_num = re.compile(r'_\d+.*')
@@ -90,11 +90,18 @@ def get_dataset_metrics(root_dir) -> Tuple[dict, list]:
 def get_printable_dataset_metrics(root_dir) -> str:
     site_counter_dict, classes = get_dataset_metrics(root_dir)
     out_fd = io.StringIO()
+    class_counter = Counter()
     for (site, site_counter) in site_counter_dict.items():
         print(site, file=out_fd)
         for label_idx in site_counter:
+            class_counter.update([label_idx])
             print('|-', '{0:04}'.format(site_counter[label_idx]),
                   classes[label_idx], file=out_fd)
         print(file=out_fd)
+
+    print('Classes:', file=out_fd)
+    for label_idx in class_counter:
+        print('|-', '{0:04}'.format(class_counter[label_idx]),
+              classes[label_idx], file=out_fd)
 
     return out_fd.getvalue()
