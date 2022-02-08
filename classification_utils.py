@@ -91,6 +91,7 @@ def get_dataset_metrics(root_dir) -> Tuple[dict, list]:
 def get_printable_dataset_metrics(root_dir) -> str:
     site_counter_dict, classes = get_dataset_metrics(root_dir)
     out_fd = io.StringIO()
+    print(root_dir, file=out_fd)
     class_counter = Counter()
     for (site, site_counter) in site_counter_dict.items():
         print(site, file=out_fd)
