@@ -14,7 +14,7 @@ _CLASS_COLORS = {
     'emptyboom': (218, 139, 195),
     'bandpass': (255, 254, 163),
     'corrosion': (221, 132, 82),
-    'peel': (133, 79, 49),
+    'peel': (15, 255, 30),
     'moss': (85, 168, 104),
     'other-defect': (255, 255, 255),
     'dangle': (221, 132, 82),

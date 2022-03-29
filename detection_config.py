@@ -15,7 +15,8 @@ TARGET_CLASSES = [
     'other-defect',
     'dangle',
     'aol',
-    'rru'
+    'rru',
+    'tower'
 ]
 
 # TILE_SIDE_HEIGHT = 800
