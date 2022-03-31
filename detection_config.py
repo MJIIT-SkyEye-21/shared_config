@@ -16,7 +16,8 @@ TARGET_CLASSES = [
     'dangle',
     'aol',
     'rru',
-    'tower'
+    'tower',
+    'peel'
 ]
 
 # TILE_SIDE_HEIGHT = 800
