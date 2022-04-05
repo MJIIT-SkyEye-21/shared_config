@@ -1,6 +1,6 @@
 MODEL_BASE = "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
 
-TARGET_CLASSES = [
+TARGET_CLASSES = list(sorted([
     'rru1',
     'rru2',
     'rru3',
@@ -18,7 +18,7 @@ TARGET_CLASSES = [
     'rru',
     'tower',
     'peel'
-]
+]))
 
 # TILE_SIDE_HEIGHT = 800
 # TILE_SIDE_WIDTH = 800
